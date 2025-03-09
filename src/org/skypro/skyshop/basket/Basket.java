@@ -1,5 +1,6 @@
 package org.skypro.skyshop.basket;
 
+import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.Product;
 
 public class Basket {
@@ -7,13 +8,14 @@ public class Basket {
     int size;
 
     public Basket() {
-        products = new Product[5];
+        products = new Product[10];
         size = 0;
+
     }
 
     //1.Метод добавления товара
     public void addProduct(Product product) {
-        if (products.length > size) {
+        if (products.length > size && product !=null) {
             products[size] = product;
             System.out.println("Продукт " + product.getName() + " добавлен в корзину! ");
             size++;
@@ -26,21 +28,30 @@ public class Basket {
     //2.Метод получения общей стоимости корзины
     public int getTotalPrice() {
         int total = 0;
-        for (int i=0;i<size;i++) {
-            total += products[i].getCost();
+        for (int i = 0; i < size; i++) {
+           if (products[i]!=null){
+               total += products[i].getCost();}
+
         }
         return total;
     }
 
     //3.Метод, который печатает содержимое корзины
     public void printContentBasket() {
+        int specialCount=0;
         if (size == 0) {
             System.out.println(" В корзине пусто! ");
-        } else {
-            for (int i = 0; i < size; i++) {
-                System.out.println(products[i].getName() + ":" + products[i].getCost() + " рублей");
+        } else  {
+            for (Product product:products) {
+                if (product!=null) {
+                    System.out.println(product);
+                    if (product.isSpecial()) {
+                        specialCount++;
+                    }
+                }
             }
             System.out.println("Итого:" + getTotalPrice());
+            System.out.println("Специальных товраров: " +specialCount);
         }
     }
 
