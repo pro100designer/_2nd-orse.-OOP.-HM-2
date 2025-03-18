@@ -1,21 +1,18 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.Basket;
-import org.skypro.skyshop.product.DiscountedProduct;
-import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.product.SimpleProduct;
 
 public class App {
-    private static Product[] products = new Product[10];
+    private static Product[] products = new Product[5];
 
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        products[0] = new SimpleProduct("Мороженное", 95);
-        products[1] = new SimpleProduct("Сок", 170);
-        products[2] = new SimpleProduct("Стейк говядины", 679);
-        products[3] = new SimpleProduct("Яйца", 120);
-        products[4] = new SimpleProduct("Хлеб", 79);
+        products[0] = new Product("Мороженное", 95);
+        products[1] = new Product("Сок", 170);
+        products[2] = new Product("Стейк говяидны", 679);
+        products[3] = new Product("Яйца", 120);
+        products[4] = new Product("Хлеб", 79);
         Basket basket = new Basket();
         //1.Добавление продукта в корзину.
         System.out.println("1.Добавление продукта в корзину.");
@@ -51,18 +48,6 @@ public class App {
         //10.Поиск товара по имени в пустой корзине.
         System.out.println("10.Поиск товара по имени в пустой корзине.");
         basket.checkProduct("Яйца");
-        //11.Проверка изменений. ООП наследование
-        System.out.println("11.Проверка изменений. ООП наследование");
-        Product water = new SimpleProduct("Вода",150);
-        Product tShort = new DiscountedProduct("Кофта", 5000,20);
-        Product bananes = new FixPriceProduct("Бананы");
-        products[5]=  water;
-        products[6]=  tShort;
-        products[7]=  bananes;
-        basket.addProduct(products[5]);
-        basket.addProduct(products[6]);
-        basket.addProduct(products[7]);
-        basket.printContentBasket();
 
 
     }
