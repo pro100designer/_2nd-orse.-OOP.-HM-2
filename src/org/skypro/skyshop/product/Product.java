@@ -25,7 +25,7 @@ public class Product implements Searchable {
     }
 
     @Override
-    public String searchTerm() {
+    public String getSearchTerm() {
         return name;
     }
 

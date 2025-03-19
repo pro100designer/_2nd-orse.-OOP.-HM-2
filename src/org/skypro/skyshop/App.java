@@ -84,7 +84,7 @@ public class App {
 
         Searchable[] result1=engine.search("Телевизор");
 
-        System.out.println(Arrays.toString(result1));
+        engine.excludeNull(result1);
 
 
     }
