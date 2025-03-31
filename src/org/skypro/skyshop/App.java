@@ -1,10 +1,16 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.Basket;
+import org.skypro.skyshop.err.BestResultNotFound;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
+
+import java.util.Arrays;
 
 public class App {
     private static Product[] products = new Product[10];
@@ -63,6 +69,60 @@ public class App {
         basket.addProduct(products[6]);
         basket.addProduct(products[7]);
         basket.printContentBasket();
+        //12.Тестирование изменений. ООП полиморфизм
+        System.out.println("12.Тестирование изменений. ООП полиморфизм");
+        SearchEngine engine=new SearchEngine(10);
+
+        engine.add(new Product("Телевизор"));
+        engine.add(new Product("Ноутбук"));
+        engine.add(new Product("Стиральная машина"));
+
+
+        engine.add(new Article("Телевизор Samsung","Разрешение 1920х1080 FullHD "));
+        engine.add(new Article("Ноутбук macbook","13.3 (2560x1600) IPS, 60 Гц"));
+        engine.add(new Article("Стиральная машина LG"," снабжена интеллектуальной системой распознавания ткани"));
+
+
+        Searchable[] result1=engine.search("Телевизор");
+
+        engine.excludeNull(result1);
+
+        //13.Демонстрация проверки данных в классе main. Исключения
+        System.out.println("13.Демонстрация проверки данных в классе main. Исключения");
+
+        try {
+            Product boots = new Product("");
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
+        try {
+            Product suit = new SimpleProduct("Костюм ", -120);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }try {
+            Product dress = new DiscountedProduct("Платье", -120, 101);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
+        SearchEngine searchEngine=new SearchEngine(4);
+        // 1 случай.
+        searchEngine.add(new Product("Телевизор"));
+        try {
+            searchEngine.foundSuitableProductSearchBar("Телевизор");
+        } catch (BestResultNotFound e) {
+            System.out.println(e.getMessage());
+        }
+        // 2 случай.
+        searchEngine.add(new Product("Вело с пд"));
+        try {
+            searchEngine.foundSuitableProductSearchBar("Велосипед");
+        } catch (BestResultNotFound e) {
+            System.out.println(e.getMessage());
+        }
+
+
+
+
 
 
     }
