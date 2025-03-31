@@ -1,6 +1,6 @@
 package org.skypro.skyshop.search;
 
-import java.util.Arrays;
+import org.skypro.skyshop.err.BestResultNotFound;
 
 public class SearchEngine {
     public Searchable[] searchables;
@@ -47,4 +47,41 @@ public class SearchEngine {
         }
 
     }
+
+    public static int foundResult(String str, String substring) {
+        int count = 0;
+        int index = 0;
+
+        while (true) {
+            int indexSubstring = str.indexOf(substring, index);
+            if (indexSubstring == -1) {
+                break;
+            }
+            count++;
+            index = indexSubstring + substring.length();
+        }
+        return count;
+    }
+
+    public  Searchable foundSuitableProductSearchBar(String search) throws BestResultNotFound {
+        Searchable bestResult = null;
+        int count = 0;
+        for (Searchable searchable : searchables) {
+            if (searchable==null) {
+                continue;
+            }
+            int countResult = foundResult(searchable.getSearchTerm(), search);
+            if (countResult > count) {
+                bestResult = searchable;
+                count=countResult;
+            }
+        }
+        if (bestResult == null) {
+            throw new BestResultNotFound("Для запроса " + search + " не нашлось подходящей статьи");
+        } else {
+            System.out.println("Объект найден " +bestResult.getSearchTerm());
+        }
+        return bestResult;
+    }
+
 }

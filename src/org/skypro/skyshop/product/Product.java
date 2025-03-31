@@ -2,11 +2,15 @@ package org.skypro.skyshop.product;
 
 import org.skypro.skyshop.search.Searchable;
 
-public class Product implements Searchable {
+public class Product implements Searchable  {
     private String name;
 
 
     public Product(String title) {
+        if (title==null || title.isBlank()) {
+            throw new IllegalArgumentException("Неверно введено название продукта!");
+
+        }
         this.name = title;
 
     }
