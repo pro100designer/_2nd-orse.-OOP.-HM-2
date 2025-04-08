@@ -6,6 +6,10 @@ public class SimpleProduct extends Product {
 
     public SimpleProduct(String name,double price) {
         super(name);
+        if (price<=0) {
+            throw new IllegalArgumentException("Некорректно введена цена! ");
+
+        }
         this.price = price;
     }
 
@@ -21,6 +25,6 @@ public class SimpleProduct extends Product {
 
     @Override
     public String toString() {
-        return "Имя продукта " + getName()+ " цена: " + getCost();
+        return "Название продукта " + getName()+ " цена: " + getCost();
     }
 }

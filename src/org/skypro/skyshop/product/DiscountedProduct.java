@@ -6,6 +6,9 @@ public class DiscountedProduct extends Product {
 
     public DiscountedProduct(String title, double basePrice, double sale) {
         super(title);
+        if ((basePrice <= 0) || (sale <= 0 || sale >= 100)) {
+            throw new IllegalArgumentException("Базовая цена и скидка являются некорректными!");
+        }
         this.basePrice = basePrice;
         this.sale = sale;
     }
@@ -17,7 +20,7 @@ public class DiscountedProduct extends Product {
 
     @Override
     public double getCost() {
-        basePrice=  basePrice * (1-(sale / 100));
+        basePrice = basePrice * (1 - (sale / 100));
         return basePrice;
     }
 
