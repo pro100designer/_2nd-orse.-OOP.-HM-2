@@ -7,7 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Basket {
-    public LinkedList<Product> products;
+    private List<Product> products;
+    private List<Product> productsRemoved;
+
 
     public Basket(LinkedList<Product> products) {
         this.products = products;
@@ -65,8 +67,8 @@ public class Basket {
 
     //4.Метод, проверяющий продукт в корзине по имени
     public boolean checkProduct(String product) {
-        for (int i = 0; i < products.size(); i++) {
-            if (products.contains(product)) {
+        for (Product p : products) {
+            if (product != null && product.equals(p.getName())) {
                 System.out.println("Товар " + product + " есть в наличии!");
                 return true;
             }
@@ -87,17 +89,22 @@ public class Basket {
 
     public List<Product> removeAllProduct(String name) {
         List<Product> removedProducts = new LinkedList<>();
-        if (name == null || products.isEmpty()) {
+        if (name == null) {
+            System.out.println("Такого продукта нет в списке!");
             return removedProducts;
         }
-        for (Product product:products) {
-            if (!product.getName().equals(name)) {
-                System.out.println("Такого продукта нет в списке!");
-            }
-        }
-        if (!removedProducts.contains(name)) {
+        if (products.isEmpty()) {
             System.out.println("Список пуст!");
+            return removedProducts;
         }
+//        for (Product product:products) {
+//            if (product.) {
+//                System.out.println("Список пуст");
+//            }
+//        }
+//        if (!removedProducts.contains(name)) {
+//            System.out.println("Такого продукта нет в списке! ");
+//        }
         Iterator<Product> iterator = products.iterator();
         while (iterator.hasNext()) {
             Product product = iterator.next();
@@ -108,6 +115,9 @@ public class Basket {
             }
 
         }
+        if (removedProducts.isEmpty()) {
+            System.out.println("Продукт '" + name + "' не найден в списке!");
+        }
 
         return removedProducts;
     }
@@ -115,13 +125,18 @@ public class Basket {
     //7.Метод,которые печатает удаленный продукты
     public void printRemovedProduct(List<Product> list) {
         if (products.isEmpty()) {
-            System.out.println("Корзина уже пуста!");
+            System.out.println("Список пуст! ");
             return;
         }
 //        List<Product> removedProducts = new LinkedList<>();
         System.out.println("Были удалены следующие продукты:");
         for (Product product : list) {
-            System.out.println("- " + product.getName() + " (Цена: " + product.getCost() + ")");
+            if (list.isEmpty()) {
+                System.out.println("Продукт '" + product.getName() + "' не найден в списке!");
+            } else {
+                System.out.println("- " + product.getName() + " (Цена: " + product.getCost() + ")");
+            }
+
         }
 
         System.out.println("Удалено товаров: " + list.size());

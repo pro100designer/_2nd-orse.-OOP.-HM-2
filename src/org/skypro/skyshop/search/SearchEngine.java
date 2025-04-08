@@ -1,45 +1,36 @@
 package org.skypro.skyshop.search;
 
 import org.skypro.skyshop.err.BestResultNotFound;
+import org.skypro.skyshop.product.Product;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class SearchEngine {
-    public Searchable[] searchables;
-    public int size;
+    private List<Searchable> searchables;
 
-    public SearchEngine(int capacity) {
-        searchables = new Searchable[capacity];
-        size = 0;
+    public SearchEngine(List<Searchable> searchables) {
+        this.searchables=searchables;
     }
 
-    public Searchable[] search(String search) {
-        Searchable[] results = new Searchable[5];
-        int resultsCount = 0;
+    public List<Searchable> search(String search) {
+        List<Searchable> results = new LinkedList<>();
         for (Searchable searchable : searchables) {
-
             if (searchable == null) continue;
             if (searchable.getSearchTerm().contains(search)) {
-                results[resultsCount] = searchable;
-                resultsCount++;
-                if (resultsCount == 5) {
-                    break;
-                }
+                results.add(searchable);
             }
-
-
         }
         return results;
     }
 
     public void add(Searchable searchable) {
-        if (searchables.length > size && searchable != null) {
-            searchables[size] = searchable;
-            size++;
-        } else if (size > searchables.length) {
-            System.out.println("Места нет!");
+        if (searchable != null) {
+            searchables.add(searchable);
         }
     }
 
-    public void excludeNull(Searchable[] res) {
+    public void excludeNull(List<Searchable> res) {
         for (Searchable searchable : res) {
             if (searchable != null) {
                 System.out.println(searchable);
