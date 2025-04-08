@@ -39,6 +39,6 @@ public class Product implements Searchable  {
     }
 
     public String toString() {
-        return "Имя продукта " + name;
+        return "Название продукта " + name;
     }
 }
